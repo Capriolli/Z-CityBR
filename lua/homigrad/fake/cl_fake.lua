@@ -25,6 +25,7 @@ hook.Add("InputMouseApply", "fakeCameraAngles", function(cmd, x, y, angle)
 	local tbl = {}
 	local cc = GetCoolCameraBool()
 	if cc then
+		realanglelerp = realanglelerp or angle
 		diff = diff + realanglelerp + GetViewPunchAngles2() * 1 + GetViewPunchAngles() * 1 + GetViewPunchAngles3() * 1 + GetViewPunchAngles4() * 1 - angle
 		realangle = realangle and (realangle - diff) or angle
 		realangle:Normalize()
