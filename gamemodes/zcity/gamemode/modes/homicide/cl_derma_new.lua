@@ -9,7 +9,7 @@ local function set_role(role, mode)
 end
 
 local glow = Material("zbattle/borderglow2.png")
-local red = Color(255, 0, 0)
+local red = Color(0, 255, 0)
 
 local rolesmaterials = {
 	["traitor_default_soe"] = Material("vgui/traitor_icons/traitor_icon.png", "smooth"),
@@ -85,22 +85,22 @@ function PANEL:Init()
 end
 
 function PANEL:Paint(w, h)
-	surface.SetDrawColor(59, 9, 21, 235)
+	surface.SetDrawColor(9, 59, 21, 235)
 	surface.DrawRect(0, 0, w, h)
 
-	surface.SetDrawColor(59, 9, 21, 150)
+	surface.SetDrawColor(9, 59, 21, 150)
 	surface.SetMaterial(gradient_d)
 	surface.DrawTexturedRect(0, 0, w, h)
 
-	surface.SetDrawColor(59, 9, 21, 150)
+	surface.SetDrawColor(9, 59, 21, 150)
 	surface.SetMaterial(gradient_u)
 	surface.DrawTexturedRect(0, 0, w, h)
 
-	surface.SetDrawColor(59, 9, 21, 150)
+	surface.SetDrawColor(9, 59, 21, 150)
 	surface.SetMaterial(gradient_l)
 	surface.DrawTexturedRect(0, 0, w, h)
 
-	surface.SetDrawColor(59, 9, 21, 150)
+	surface.SetDrawColor(9, 59, 21, 150)
 	surface.SetMaterial(gradient_r)
 	surface.DrawTexturedRect(0, 0, w, h)
 end
@@ -187,7 +187,7 @@ function PANEL:Paint(w, h)
 	local w1, h1 = ScreenScale(200), ScreenScale(200)
 	surface.DrawTexturedRect(self.HoveredLerp * ScreenScale(100) * 0.5 - w1 * 0.5, 0, w1, h1)
 
-	surface.SetDrawColor(74, 10, 80, 50)
+	surface.SetDrawColor(10, 74, 80, 50)
 	surface.SetMaterial(gradient_r)
 	surface.DrawTexturedRect(0, 0, w, h)
 

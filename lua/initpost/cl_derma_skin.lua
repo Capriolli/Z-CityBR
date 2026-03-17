@@ -1,7 +1,7 @@
 --\\
 hg.VGUI = hg.VGUI or {}
-hg.VGUI.MainColor = Color(150, 0 ,0)
-hg.VGUI.SecondaryColor = Color(155,0,0,240)
+hg.VGUI.MainColor = Color(0, 150 ,0)
+hg.VGUI.SecondaryColor = Color(0,155,0,240)
 hg.VGUI.BackgroundColor = Color(25,25,35,220)
 hg.VGUI.MainSkin = "ZCity"
 
@@ -114,7 +114,7 @@ local gradient = surface.GetTextureID("vgui/gradient-d")
 local gradientUp = surface.GetTextureID("vgui/gradient-u")
 local gradientLeft = surface.GetTextureID("vgui/gradient-l")
 -- local gradientRadial = Material("helix/gui/radial-gradient.png")
-local defaultBackgroundColor = Color(30, 30, 30, 200)
+local defaultBackgroundColor = Color(30, 80, 30, 200)
 
 local SKIN = {}
 derma.DefineSkin("ZCity", "ZCity skin.", SKIN)
@@ -132,7 +132,7 @@ SKIN.Colours.Warning = Color(230, 180, 0)
 SKIN.Colours.MenuLabel = color_white
 SKIN.Colours.DarkerBackground = Color(0, 0, 0, 77)
 
-SKIN.Colours.Outline = Color(155, 0, 0, 255)
+SKIN.Colours.Outline = Color(0, 150, 0, 255)
 SKIN.Colours.Background = Color(0, 0, 0, 205)
 
 SKIN.Colours.SegmentedProgress = {}

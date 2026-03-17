@@ -1,12 +1,12 @@
 local PANEL = {}
 local curent_panel 
-local red_select = Color(192,0,0)
+local red_select = Color(0,192,0)
 
 local Selects = {
-    {Title = "Disconnect", Func = function(luaMenu) RunConsoleCommand("disconnect") end},
-    {Title = "Main Menu", Func = function(luaMenu) gui.ActivateGameUI() luaMenu:Close() end},
+    {Title = "Desconectar", Func = function(luaMenu) RunConsoleCommand("disconnect") end},
+    {Title = "Menu principal", Func = function(luaMenu) gui.ActivateGameUI() luaMenu:Close() end},
     {Title = "Discord", Func = function(luaMenu) luaMenu:Close() gui.OpenURL("https://discord.gg/475EmEdTgH")  end},
-    {Title = "Traitor Role",
+    {Title = "Função do assassino",
     GamemodeOnly = true,
     CreatedFunc = function(self, parent, luaMenu)
         local btn = vgui.Create( "DLabel", self )
@@ -53,7 +53,7 @@ local Selects = {
 
         function btn:DoClick()
             luaMenu:Close()
-            hg.SelectPlayerRole(nil, "standard")
+            hg.SelectPlayerRole(nil, "padrão")
         end
     
         function btn:Think()
@@ -68,32 +68,26 @@ local Selects = {
         
     end,
     },
-    {Title = "Achievements", Func = function(luaMenu,pp) 
+    {Title = "Conquistas", Func = function(luaMenu,pp) 
         hg.DrawAchievmentsMenu(pp)
     end},
-    {Title = "Settings", Func = function(luaMenu,pp) 
+    {Title = "Configurações", Func = function(luaMenu,pp) 
         hg.DrawSettings(pp) 
     end},
-    {Title = "Appearance", Func = function(luaMenu,pp) hg.CreateApperanceMenu(pp) end},
-    {Title = "Return", Func = function(luaMenu) luaMenu:Close() end},
+    {Title = "Aparência", Func = function(luaMenu,pp) hg.CreateApperanceMenu(pp) end},
+    {Title = "Resumir", Func = function(luaMenu) luaMenu:Close() end},
 }
 
 local splasheh = {
-    'LIKE HOMICIDED',
-    'PLUV PLUV PLUVISKI',
-    'LULU IS NOT DEAD | !PLUV',
-    'THE TRAITOR WAS KILLED',
-    'NAB HOMICIDE SERVER',
-    'ALSO TRY MODDED HOMICIDE 2',
-    'HOP ON Z-CITY',
-    'JOHN Z-CITY',
-    ':pluvrare:',
-    'SAW51 IS REAL',
-    'MORE SMALLTOWN',
-    'MORE CLUE2022',
-    'BACKROOMS == CLUE',
-    'HELL IS NEAR',
-    'I WISH YOU GOOD HEALTH, JASON STATHAM'
+   'SLA',
+   'PÃO COM BATATA',
+   'IRINEU',
+   'VOCÊ NÃO SABE',
+   'NEM EU!',
+   'CAPRIOLLI É VIDA',
+   'FODASE?',
+   'Z-CITY É VIDA',
+   'NEGO NEY'
 }
 
 --print(string.upper('I wish you good health, Jason Statham'))
@@ -116,14 +110,14 @@ function PANEL:InitializeMarkup()
 	local gm = splasheh[math.random(#splasheh)] .. " | " .. string.NiceName(mapname) 
 
     if hg.PluvTown.Active then
-        local text = "<font=ZC_MM_Title><colour=199,2,2>    </colour>City</font>\n<font=ZCity_Tiny><colour=105,105,105>" .. gm .. "</colour></font>"
+        local text = "<font=ZC_MM_Title><colour=2,199,2>    </colour>City</font>\n<font=ZCity_Tiny><colour=105,105,105>" .. gm .. "</colour></font>"
 
         self.SelectedPluv = table.Random(hg.PluvTown.PluvMats)
 
         return markup.Parse(text)
     end
 
-    local text = "<font=ZC_MM_Title><colour=199,2,2,255>Z</colour>-City</font>\n<font=ZCity_Tiny><colour=105,105,105>" .. gm .. "</colour></font>"
+    local text = "<font=ZC_MM_Title><colour=2,199,2,255>Z</colour>-City</font><font=ZC_MM_Title><colour=2,199,2,255>BR</colour>\n<font=ZCity_Tiny><colour=105,105,105>" .. gm .. "</colour></font>"
     return markup.Parse(text)
 end
 
@@ -209,7 +203,7 @@ function PANEL:Init()
     zteam:DockMargin(ScreenScale(10), 0, 0, 0)
     zteam:SetFont("ZCity_Tiny")
     zteam:SetTextColor(clr_gray)
-    zteam:SetText("Authors: uzelezz, Sadsalat, \nMr.Point, Zac90, Deka, Mannytko")
+    zteam:SetText("Autor: Capriolli")
     zteam:SetContentAlignment(4)
     zteam:SizeToContents()
 end
@@ -222,7 +216,7 @@ local gradient_d = surface.GetTextureID("vgui/gradient-d")
 local gradient_r = surface.GetTextureID("vgui/gradient-u")
 local gradient_l = surface.GetTextureID("vgui/gradient-l")
 
-local clr_1 = Color(102,0,0,35)
+local clr_1 = Color(0,102,0,35)
 function PANEL:Paint(w,h)
     draw.RoundedBox( 0, 0, 0, w, h, self.ColorBG )
     hg.DrawBlur(self, 5)
