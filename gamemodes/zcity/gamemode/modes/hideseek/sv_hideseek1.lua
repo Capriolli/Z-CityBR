@@ -1,6 +1,6 @@
 MODE = MODE or {}
 MODE.name = "hideseek"
-MODE.PrintName = "Hide and Seek"
+MODE.PrintName = "Esconde Esconde"
 
 MODE.ForBigMaps = false
 MODE.ROUND_TIME = 480
@@ -182,7 +182,7 @@ function MODE:GiveEquipment()
                         end
                     end
 
-                    local shooterIndex = math.random(1,6)
+                    local shooterIndex = math.random(1,7)
                         ply:SetNetVar("HNS_Schizo", false)
                         if math.random() <= 0.9 then
                             ply:SetNetVar("HNS_Schizo", true)
@@ -214,8 +214,10 @@ function MODE:GiveEquipment()
                         giveWithReserve("weapon_m16a2")
                         giveWithReserve("weapon_m1911")
                         ply:Give("weapon_hg_type59_tpik")
-
-
+                    elseif shooterIndex == 7 then
+                        giveWithReserve("weapon_akm")
+                        giveWithReserve("weapon_glock17")
+                        ply:Give("weapon_hg_type59_tpik")
                     else
                         giveWithReserve("weapon_ruger")
                         giveWithReserve("weapon_ab10")

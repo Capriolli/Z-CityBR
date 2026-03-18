@@ -1,15 +1,29 @@
 local MODE = MODE
 local HNS_SCHIZO_PHRASES = {
-    "KILL THEM ALL",
-    "THEY DESERVE WHAT'S COMING",
-    "DON'T LET THEM HIDE",
-    "THEY'RE WATCHING",
-    "END IT",
-    "NO MERCY",
-    "MAKE THEM PAY",
-    "LISTEN TO THE VOICES",
-    "FINISH THE HUNT",
-    "BLOOD FOR BLOOD",
+    "MATE TODOS ELES",
+    "ELES MERECEM",
+    "NÃO DEIXE ELES SE ESCONDEREM",
+    "ELES ESTÃO VENDO",
+    "ACABE COM ISSO",
+    "SEM PIEDADE",
+    "FAÇA-OS PAGAREM",
+    "ESCUTE AS VOZES",
+    "ACABE COM A CAÇA",
+    "SANGUE POR SANGUE",
+    "MATE SEM PARAR",
+    "ELES ME MANDAM MATAR",
+    "NINGUÉM ESCAPA",
+    "CORTE SUAS GARGANTAS",
+    "EU VEJO VOCÊS",
+    "SUA MORTE É CERTA",
+    "OBEDEÇA E MATE",
+    "CAOS E SANGUE",
+    "ELES TÊM QUE MORRER",
+    "NÃO PARE DE MATAR",
+    "SUA VEZ DE SOFRER",
+    "DESMEMBRE-OS",
+    "GRITOS NÃO BASTAM",
+    "ENTREGA-SE AO SANGUE",
 }
 
 local hnsSchizoNextAt = 0
@@ -26,10 +40,10 @@ hook.Add("HUDPaint", "HNS_SchizoFlashes", function()
     -- Show for 5 seconds, then wait 10 seconds before next burst
     if hnsSchizoShowUntil == 0 or (t >= hnsSchizoShowUntil and t >= hnsSchizoNextAt) then
         hnsSchizoBatch = {}
-        for i = 1, 12 do
+        for i = 1, 14 do
             hnsSchizoBatch[i] = HNS_SCHIZO_PHRASES[math.random(#HNS_SCHIZO_PHRASES)]
         end
-        hnsSchizoShowUntil = t + 5
+        hnsSchizoShowUntil = t + math.random(2, 10)
         hnsSchizoNextAt = hnsSchizoShowUntil + 10
     end
 
@@ -69,14 +83,14 @@ local teams = {
         color2 = Color(68, 10, 255)
     },
     [1] = {
-        objective = "Some people have bad intentions. Hide from the Seekers, they'll arrive shortly.",
-        name = "Hider",
+        objective = "Há pessoas mal intensionadas, corra pela sua vida",
+        name = "Presa",
         color1 = Color(0, 190, 190),
         color2 = Color(0, 190, 190)
     },
     [2] = {
-        objective = "Can't turn back now, kill all the hiders.",
-        name = "Seeker",
+        objective = "Não há mais volta, mate todos que você ver pela frente",
+        name = "Caçador",
         color1 = Color(255, 0, 0),
         color2 = Color(228, 49, 49)
     },
@@ -95,14 +109,14 @@ function MODE:HUDPaint()
     if zb.ROUND_START + 60 > CurTime() then
         posadd = Lerp(FrameTime() * 5,posadd or 0, zb.ROUND_START + 7.3 < CurTime() and 0 or -sw * 0.4)
         local blink = math.sin(CurTime()*3) >= 0 and Color(255,0,0) or Color(0,0,0)
-        draw.SimpleText( "Seeker will arrive in: "..string.FormattedTime(zb.ROUND_START + 60 - CurTime(), "%02i:%02i"), "ZB_HomicideMedium", sw * 0.02 + posadd, sh * 0.91, Color(0,0,0), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-        draw.SimpleText( "Seeker will arrive in: "..string.FormattedTime(zb.ROUND_START + 60 - CurTime(), "%02i:%02i"), "ZB_HomicideMedium", (sw * 0.02) - 2 + posadd, (sh * 0.91) - 2, blink, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        draw.SimpleText( "A caça vai começar em: "..string.FormattedTime(zb.ROUND_START + 60 - CurTime(), "%02i:%02i"), "ZB_HomicideMedium", sw * 0.02 + posadd, sh * 0.91, Color(0,0,0), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        draw.SimpleText( "A caça vai começar em: "..string.FormattedTime(zb.ROUND_START + 60 - CurTime(), "%02i:%02i"), "ZB_HomicideMedium", (sw * 0.02) - 2 + posadd, (sh * 0.91) - 2, blink, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
     end
     if zb.ROUND_START + 240 > CurTime() then
         posadd = Lerp(FrameTime() * 5,posadd or 0, zb.ROUND_START + 7.3 < CurTime() and 0 or -sw * 0.4) 
         local color = Color(255*-math.sin(CurTime()*3),25,255*math.sin(CurTime()*3))
-        draw.SimpleText( string.FormattedTime(zb.ROUND_START + 240 - CurTime(), "%02i:%02i").." Until Round End", "ZB_HomicideMedium", sw * 0.02 + posadd, sh * 0.95, Color(0,0,0), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-        draw.SimpleText( string.FormattedTime(zb.ROUND_START + 240 - CurTime(), "%02i:%02i").." Until Round End", "ZB_HomicideMedium", (sw * 0.02) - 2 + posadd, (sh * 0.95) - 2, color, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        draw.SimpleText( string.FormattedTime(zb.ROUND_START + 240 - CurTime(), "%02i:%02i").." Tempo restante:", "ZB_HomicideMedium", sw * 0.02 + posadd, sh * 0.95, Color(0,0,0), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        draw.SimpleText( string.FormattedTime(zb.ROUND_START + 240 - CurTime(), "%02i:%02i").." Tempo restante", "ZB_HomicideMedium", (sw * 0.02) - 2 + posadd, (sh * 0.95) - 2, color, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
         local fade = math.Clamp(zb.ROUND_START + 7.5 - CurTime(), 0, 1)
         surface.SetDrawColor(0, 0, 0, 255 * fade)
         surface.DrawRect(-1, -1, ScrW() + 1, ScrH() + 1)
@@ -121,9 +135,9 @@ function MODE:HUDPaint()
             local fade = active and 1 or fadeout
             local colRed = Color(228, 49, 49, 255 * fade)
             local colWhite = Color(255, 255, 255, 255 * fade)
-            draw.SimpleText("You are a seeker", "ZB_HomicideMediumLarge", sw * 0.5, sh * 0.4, colRed, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-            draw.SimpleText("Find all hiders and kill them.", "ZB_HomicideMedium", sw * 0.5, sh * 0.5, colWhite, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-            draw.SimpleText("You will arrive in " .. string.FormattedTime(math.max(arrive - t, 0), "%02i:%02i"), "ZB_HomicideMedium", sw * 0.5, sh * 0.6, colWhite, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+            draw.SimpleText("Você é o caçador", "ZB_HomicideMediumLarge", sw * 0.5, sh * 0.4, colRed, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+            draw.SimpleText("Encontre as presas e mate.", "ZB_HomicideMedium", sw * 0.5, sh * 0.5, colWhite, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+            draw.SimpleText("Você vai chegar em:" .. string.FormattedTime(math.max(arrive - t, 0), "%02i:%02i"), "ZB_HomicideMedium", sw * 0.5, sh * 0.6, colWhite, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
         end
     end
 
@@ -131,11 +145,11 @@ function MODE:HUDPaint()
 		if not lply:Alive() and not lply:Team() == 0 then return end
 		local fade = math.Clamp(zb.ROUND_START + 8 - CurTime(), 0, 1)
 		local team_ = lply:Team()
-		draw.SimpleText("ZBattle | Hide n' Seek", "ZB_HomicideMediumLarge", sw * 0.5, sh * 0.1, Color(195, 0, 0, 255 * fade), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleText("ZBattle | Esconde Esconde", "ZB_HomicideMediumLarge", sw * 0.5, sh * 0.1, Color(195, 0, 0, 255 * fade), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 		local Rolename = teams[team_].name
 		local ColorRole = teams[team_].color1
 		ColorRole.a = 255 * fade
-		draw.SimpleText("You are a " .. Rolename, "ZB_HomicideMediumLarge", sw * 0.5, sh * 0.5, ColorRole, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+		draw.SimpleText("Você é " .. Rolename, "ZB_HomicideMediumLarge", sw * 0.5, sh * 0.5, ColorRole, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 		local Objective = teams[team_].objective
 		local ColorObj = teams[team_].color2
 		ColorObj.a = 255 * fade
@@ -208,17 +222,17 @@ CreateEndMenu = function(whowin)
 		surface.DrawOutlinedRect(0, 0, w, h, 2.5)
 		surface.SetFont("ZB_InterfaceMedium")
 		surface.SetTextColor(col.r, col.g, col.b, col.a)
-		local lenghtX, lenghtY = surface.GetTextSize("Close")
+		local lenghtX, lenghtY = surface.GetTextSize("Fecbar")
 		surface.SetTextPos(lenghtX - lenghtX / 1.1, 4)
-		surface.DrawText("Close")
+		surface.DrawText("Fechar")
 	end
 
 	hmcdEndMenu.PaintOver = function(self, w, h)
 		surface.SetFont("ZB_InterfaceMediumLarge")
 		surface.SetTextColor(col.r, col.g, col.b, col.a)
-		local lenghtX, lenghtY = surface.GetTextSize("Players:")
+		local lenghtX, lenghtY = surface.GetTextSize("Jogadores:")
 		surface.SetTextPos(w / 2 - lenghtX / 2, 20)
-		surface.DrawText("Players:")
+		surface.DrawText("Jogadores:")
 	end
 
 	-- PLAYERS

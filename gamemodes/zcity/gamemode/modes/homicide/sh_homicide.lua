@@ -24,9 +24,9 @@ MODE.SubRoles = {
 	--; https://youtu.be/zP7ux8WsYYI?si=S-Uw2EAehGR5WD3D
 	["traitor_default"] = {
 		Name = "Defoko",
-		Description = [[Default.
-You've prepared for a long time.
-You are equipped with various weapons, poisons and explosives, grenades and your favourite heavy duty knife and a zoraki signal pistol to help you kill.]],
+		Description = [[Padrão.
+		Você se preparou para este momento.
+		You are equipped with various weapons, poisons and explosives, grenades and your favourite heavy duty knife and a zoraki signal pistol to help you kill.]],
 		Objective = "You're geared up with items, poisons, explosives and weapons hidden in your pockets. Murder everyone here.",
 		SpawnFunction = function(ply)
 			local wep = ply:Give("weapon_zoraki")
