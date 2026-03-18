@@ -1,5 +1,13 @@
-# Hide & Seek Seeker Loadout Randomization & 90% Schizo
+# ZCity Blood Decal Detector Task - COMPLETE
 
-## Steps:
-- [x] 1. Edit gamemodes/zcity/gamemode/modes/hideseek/sv_hideseek1.lua: Randomize shooterIndex and add 90% schizo.
-- [ ] 2. Test in GMod: Start ZCity Hide&Seek round, check seekers have random loadouts from presets and ~90% have HNS_Schizo true.
+1. [x] Create zcity_blood_decal_detector.lua in lua/autorun/
+2. [x] Implement damage hook for surface blood impacts
+3. [x] Add timer for location checking and console print
+4. [x] Test and adjust threshold. Added extra_realistic_blood_mod "blood_pool" effect + sprite on alert.
+5. [x] Complete task
+
+Run in console: lua_openscript_cl zcity_blood_decal_detector.lua (client no-op). Reload server to activate autorun.
+
+System ready: Shoots/blood hits on same floor spot accumulate, >=20 in 64x64 grid within 30s -> "Funcionando" in server console + chat.
+
+
