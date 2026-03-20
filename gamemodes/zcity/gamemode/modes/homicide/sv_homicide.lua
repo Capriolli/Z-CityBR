@@ -475,6 +475,61 @@ MODE.Types.gunfreezone = {
 		[0] = "The murderer was",
 	},
 	Message = "The murderer was ",
+
+MODE.Types.ttt = {
+	Chance = 0.1,
+	ChanceFunction = function() return (zb.GetWorldSize() < ZBATTLE_BIGMAP) and (zb.ModesChances["ttt"] or 0.1) or 0 end,
+	LootTable = MODE.LootTable,
+	Messages = {
+		[3] = "Everyone died.",
+		[2] = "Traitors have been identified and neutralized!",
+		[1] = "Innocents have all been eliminated!",
+		[0] = "Traitors win!",
+	},
+	Message = "Game ended. Traitors were ",
+	TraitorLoot = function(ply)
+		local strongGuns = {
+			"weapon_remington870", "weapon_mp5", "weapon_m16a2", "weapon_ar15", "weapon_ac556",
+			"weapon_mini14", "weapon_kar98", "weapon_sks", "weapon_sr25", "weapon_doublebarrel"
+		}
+		local gun = ply:Give(strongGuns[math.random(#strongGuns)])
+		ply:GiveAmmo(gun:GetMaxClip1() * 2, gun:GetPrimaryAmmoType(), true)
+		
+		-- Ferramentas traitor
+		ply:Give("weapon_usp_silencer")
+		ply:GiveAmmo(60, "Pistol")
+		ply:Give("weapon_knife_ttt")
+		ply:Give("weapon_c4_ttt")
+		ply:Give("weapon_radio_ttt")
+		ply:Give("weapon_adrenaline")
+		ply.organism.stamina.range = 220
+	end,
+	GunManLoot = function(ply) -- Detective
+		local strongGuns = {
+			"weapon_remington870", "weapon_mp5", "weapon_m16a2", "weapon_ar15", "weapon_ac556",
+			"weapon_mini14", "weapon_kar98", "weapon_sks", "weapon_sr25"
+		}
+		local gun = ply:Give(strongGuns[math.random(#strongGuns)])
+		ply:GiveAmmo(gun:GetMaxClip1() * 2, gun:GetPrimaryAmmoType(), true)
+		
+		ply:Give("weapon_deagle")
+		ply:GiveAmmo(28, "Pistol")
+		ply:Give("weapon_binoculars_ttt")
+		ply:Give("weapon_dna_scanner")
+		ply:SetNetVar("CurPluv", "pluvdetective")
+	end,
+	InnocentLoot = function(ply)
+		local strongGuns = {
+			"weapon_remington870", "weapon_mp5", "weapon_m16a2", "weapon_ar15", "weapon_ac556",
+			"weapon_mini14", "weapon_kar98", "weapon_sks", "weapon_sr25", "weapon_doublebarrel_short",
+			"weapon_draco", "weapon_mp7"
+		}
+		local gun = ply:Give(strongGuns[math.random(#strongGuns)])
+		ply:GiveAmmo(gun:GetMaxClip1() * 2, gun:GetPrimaryAmmoType(), true)
+	end,
+	PoliceAllowed = false,
+	SkillIssue = 3,
+},
 	TraitorLoot = function(ply)
 		ply:Give("weapon_buck200knife")
 		ply:Give("weapon_hg_type59_tpik")
@@ -634,6 +689,7 @@ local modes = {
 	"standard",
 	"wildwest",
 	"gunfreezone",
+	"ttt",
 }
 
 util.AddNetworkString("HMCD_RoundStart")
@@ -1534,6 +1590,12 @@ function MODE.SpawnPlayers(spawn_with_subroles)
             break
         end
     end
+    
+    -- TTT InnocentLoot for non-traitor/gunner
+    for _, ply in player.Iterator() do
+        if ply:Team() == TEAM_SPECTATOR or ply.isTraitor or ply.isGunner then continue end
+        MODE.Types.ttt.InnocentLoot(ply)
+    end
 
     local player_count = 0
     for i, ply in player.Iterator() do
@@ -1640,10 +1702,10 @@ function MODE.SpawnPlayers(spawn_with_subroles)
             else
                 if(current_ply.isTraitor)then
                     MODE.Types[MODE.Type].TraitorLoot(current_ply)
-                end
-
-                if(current_ply.isGunner)then
+                elseif(current_ply.isGunner)then
                     MODE.Types[MODE.Type].GunManLoot(current_ply)
+                elseif MODE.Type == "ttt" then
+                    MODE.Types.ttt.InnocentLoot(current_ply)
                 end
             end
             

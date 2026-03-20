@@ -13,6 +13,7 @@ MODE.TypeSounds = {
 	["gunfreezone"] = "snd_jack_hmcd_panic.mp3" ,
 	["suicidelunatic"] = "zbattle/jihadmode.mp3",
 	["wildwest"] = "snd_jack_hmcd_wildwest.mp3",
+	["ttt"] = "snd_jack_hmcd_psycho.mp3",
 	["supermario"] = "snd_jack_hmcd_psycho.mp3"
 }
 local fade = 0
@@ -93,6 +94,7 @@ MODE.TypeNames = {
 	["gunfreezone"] = "Gun Free Zone",
 	["suicidelunatic"] = "Suicide Lunatic",
 	["wildwest"] = "Wild west",
+	["ttt"] = "Trouble in Terrorist Town",
 	["supermario"] = "Super Mario"
 }
 
@@ -231,6 +233,26 @@ MODE.TypeObjectives.gunfreezone = {
 		color1 = Color(0,120,190)
 	},
 }
+
+MODE.TypeObjectives.ttt = {
+	traitor = {
+		objective = "Work with your fellow traitors to kill everyone else. Stay in the shadows.",
+		name = "Traitor",
+		color1 = Color(200,25,25),
+		color2 = Color(200,25,25)
+	},
+	gunner = {
+		objective = "You are the Detective. Use your tools to identify traitors and lead innocents to victory.",
+		name = "Detective",
+		color1 = Color(0,120,255),
+		color2 = Color(0,120,255)
+	},
+	innocent = {
+		objective = "Survive and help the detective identify traitors. Trust no one completely.",
+		name = "Innocent",
+		color1 = Color(0,200,0)
+	},
+},
 
 MODE.TypeObjectives.suicidelunatic = {
 	traitor = {

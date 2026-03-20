@@ -432,6 +432,21 @@ MODE.Roles.gunfreezone = {
 	},
 }
 
+MODE.Roles.ttt = {
+	traitor = {
+		name = "Traitor",
+		color = Color(200,25,25)
+	},
+	gunner = {
+		name = "Detective",
+		color = Color(0,120,255)
+	},
+	innocent = {
+		name = "Innocent",
+		color = Color(0,200,0)
+	},
+},
+
 MODE.Roles.supermario = {
 	traitor = {
 		objective = "You're the evil Mario! Jump around and take down everyone.",
