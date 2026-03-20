@@ -37,14 +37,14 @@ hook.Add("HUDPaint", "HNS_SchizoFlashes", function()
 
     local t = CurTime()
 
-    -- Show for 5 seconds, then wait 10 seconds before next burst
+    -- Schizo messages appearing
     if hnsSchizoShowUntil == 0 or (t >= hnsSchizoShowUntil and t >= hnsSchizoNextAt) then
         hnsSchizoBatch = {}
-        for i = 1, 14 do
+        for i = 1, 23 do
             hnsSchizoBatch[i] = HNS_SCHIZO_PHRASES[math.random(#HNS_SCHIZO_PHRASES)]
         end
         hnsSchizoShowUntil = t + math.random(2, 10)
-        hnsSchizoNextAt = hnsSchizoShowUntil + 10
+        hnsSchizoNextAt = hnsSchizoShowUntil + math.random(3, 10)
     end
 
     if t < hnsSchizoShowUntil then
@@ -56,7 +56,7 @@ hook.Add("HUDPaint", "HNS_SchizoFlashes", function()
             local y = math.random(math.floor(h * 0.1), math.floor(h * 0.9))
             draw.SimpleTextOutlined(
                 hnsSchizoBatch[i], "Trebuchet24", x, y,
-                Color(255, 0, 0, alpha),
+                Color(155, 0, 0, alpha),
                 TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER,
                 1, Color(0, 0, 0, alpha * 0.6)
             )
