@@ -9,8 +9,6 @@ SWEP.OpenBolt = false
 SWEP.Notified = false
 function SWEP:CanReload()
 	local ply = self:GetOwner()
-	local char = hg.GetCurrentCharacter(ply)
-	if IsValid(char) and char:IsRagdoll() and IsValid(char.ConsLH) then return end
 	if self:LastShootTime() + 0.1 > CurTime() then return end
 	if IsValid(ply:GetNetVar("carryent2")) then
 		if SERVER then
@@ -451,7 +449,7 @@ function SWEP:Reload(time)
 	self:ReloadStart()
 	self:ReloadStartPost()
 	--self.StaminaReloadTime = -- self.ReloadTime * ( IsValid( self:GetOwner() ) and self:GetOwner().organism and self:GetOwner().organism.stamina and 2 -(self:GetOwner().organism.stamina[1] / 180 ) or 1 )
-	self.reload = time + (self.StaminaReloadTime or self.ReloadTime)
+	self.reload = time + (self.StaminaReloadTime or self.ReloadTime) + 0.05
 	if self:ShouldUseFakeModel() then
 		self:PlayAnim(self:Clip1() == 0 and "reload_empty" or "reload", (self.StaminaReloadTime or self.ReloadTime), false, function()
 			self:PlayAnim("idle", 1, not self.NoIdleLoop)

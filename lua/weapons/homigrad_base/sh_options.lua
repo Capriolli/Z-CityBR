@@ -24,11 +24,7 @@ if CLIENT then
 
 	net.Receive("unload_ammo",function()
 		local wep = net.ReadEntity()
-		if wep.AnimList["unload"] then
-			wep:PlayAnim("unload", wep.UnloadAnimTime)
-		else
-			wep:AttachAnim()
-		end
+
 		if wep.Unload then
 			wep:Unload()
 		end
@@ -210,7 +206,7 @@ if CLIENT then
 
                     return -1
                 end,
-                [2] = "Change Posture\nRMB - Menu"
+                [2] = "Change Posture\n(MOUSE2 to select)" 
             },
             [2] = {
                 [1] = function()
@@ -296,7 +292,7 @@ if CLIENT then
 
                 return -1
             end,
-            [2] = "Weapon Menu"
+            [2] = "Weapon Manipulations Menu"
         }
     end)
 end

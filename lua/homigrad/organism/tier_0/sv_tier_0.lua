@@ -74,8 +74,7 @@ hook.Add("Think", "homigrad-organism", function()
 	mulTime = (SysTime() - start) * game.GetTimeScale()
 
 	start = SysTime()
-	for owner, org in pairs(hg.organism.list) do -- теперь ясно почему от трупов лагает...
-		if org.godmode then continue end
+	for owner, org in pairs(hg.organism.list) do
 		hook_Run("Org Think", owner, org, mulTime)
 	end
 end)

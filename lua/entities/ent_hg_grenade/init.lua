@@ -197,11 +197,11 @@ function ENT:Explode()
 				mask = MASK_SHOT,
 				filter = self
 			})
-		--if line.Hit then
-		--	ParticleEffect("pcf_jack_groundsplode_small3",selfPos,-vector_up:Angle())
-		--else
+		if line.Hit then
+			ParticleEffect("pcf_jack_groundsplode_small3",selfPos,-vector_up:Angle())
+		else
 			ParticleEffect("pcf_jack_airsplode_small3",selfPos,-vector_up:Angle())
-		--end
+		end
 	else
 		local effectdata = EffectData()
 		effectdata:SetOrigin(selfPos)
@@ -330,10 +330,7 @@ function ENT:Explode()
 
 	timer.Simple(0, function()
 		util.ScreenShake( selfPos, 35, 200, 1, 1000 )
-
-		local ammo = "Metal Debris"
-		local ammotype = hg.ammotypeshuy[ammo].BulletSettings
-
+		
 		local co = coroutine.create(function()
 
 			local LastShrapnel = SysTime()
@@ -349,26 +346,17 @@ function ENT:Explode()
 
 					if Tr.Hit and !Tr.HitSky and !Tr.HitWorld then
 						local bullet = {}
-
-						bullet.Speed = ammotype.Speed
-						bullet.Distance = ammotype.Distance or 56756
-						bullet.penetrated = 0
-						bullet.MaxPenLen = 100
-						bullet.Penetration = (ammotype.Penetration or (-(-self.Penetration))) * (self.PenetrationMultiplier or 1)
-						bullet.Diameter = ammotype.Diameter or 1
-
 						bullet.Src = selfPos
 						bullet.Spread = vecCone
 						bullet.Force = 20
 						bullet.Damage = 40
-						bullet.AmmoType = ammo
+						bullet.AmmoType = "Metal Debris"
 						bullet.Attacker = self.owner
 						bullet.Inflictor = self
 						bullet.Distance = 56756
 						bullet.DisableLagComp = true
 						bullet.Filter = {self}
 						bullet.Dir = dir
-						bullet.Callback = hg.bulletHit
 
 						self:FireLuaBullets(bullet, true)
 					end

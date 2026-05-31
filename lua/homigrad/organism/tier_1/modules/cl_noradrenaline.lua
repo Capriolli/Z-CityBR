@@ -64,9 +64,9 @@ hook.Add("RenderScreenspaceEffects", "noradrenalineEffect", function()
 			hg.DynamicMusicV2.Player.Stop()
 		end
 
-		hg.noradrenalineIntensity = 0
-
 		hg.undernoradrenaline = false
+
+		hg.noradrenalineIntensity = 0
 	end
 end)
 

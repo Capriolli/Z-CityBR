@@ -106,10 +106,7 @@ local function createButton_2(frame, ach, text, func, y)
     button:SetPos(0,y)
     button.DoClick = function(self) 
         curent_panel_ach = ach
-        func(self)
-		for i = 1, 3 do
-			surface.PlaySound("shitty/tap_depress.wav")
-		end
+        func(self) 
     end
     return button
 end
@@ -163,8 +160,8 @@ function hg.DrawAchievmentsMenu(ParentPanel)
     frame:SetSize(ParentPanel:GetWide()/2.5, ScreenScale(22)*8.25+ScreenScale(2.5))
     frame:SetPos(5, ParentPanel:GetTall()/2 - frame:GetTall()/2)
     frame.Paint = function()
+        
     end
-
     hg.achievements.MenuPanel = frame
 
     local scroll = vgui.Create("DScrollPanel",frame)

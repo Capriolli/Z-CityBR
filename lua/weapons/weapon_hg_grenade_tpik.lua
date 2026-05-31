@@ -446,8 +446,6 @@ function SWEP:ThinkAdd()
 	end
 
 	if self.ReadyToThrow and ( ( self.IsLowThrow and not self:KeyDown(IN_ATTACK2) ) or not self.IsLowThrow and not self:KeyDown(IN_ATTACK) ) and not self.InThrowing then
-		if self.wait and self.wait > CurTime() then return end
-		self.wait = CurTime() + 1
 		self:PlayAnim(self.IsLowThrow and "attack2" or "attack")
 		self.InThrowing = true
 		self:SetShowGrenade(false)
@@ -522,7 +520,7 @@ function SWEP:CreateSpoon(entownr)
 
 		if self.SpoonSounds then
 			for k,v in ipairs(self.SpoonSounds) do
-				self:GetOwner():EmitSound(v[1], v[2], v[3], v[5])
+				self:GetOwner():EmitSound(v[1], v[2], v[3])
 
 				if v[4] then
 					local effectData = EffectData()

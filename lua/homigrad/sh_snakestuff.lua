@@ -1,4 +1,3 @@
---// Q-Menu snake/worm
 
 local zmeyka_netsendtime = 0.05
 
